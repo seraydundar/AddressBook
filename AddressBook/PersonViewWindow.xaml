@@ -1,0 +1,37 @@
+﻿<Window x:Class="AddressBook.PersonViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kişi Görüntüle" Height="520" Width="620"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        FontFamily="Segoe UI">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding FullName}" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Grid.Row="0" Margin="0,26,0,0" Text="{Binding Phone}" Opacity="0.7"/>
+
+        <GroupBox Grid.Row="2" Header="{Binding AddressHeader}">
+            <ListBox ItemsSource="{Binding Addresses}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" Margin="0,0,0,8" CornerRadius="10" BorderThickness="1" BorderBrush="#E5E7EB">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding City}" Opacity="0.75"/>
+                                <TextBlock Text="{Binding District}" Opacity="0.75"/>
+                                <TextBlock Text="{Binding AddressLine}" TextWrapping="Wrap" Opacity="0.9"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <Button Grid.Row="3" Content="Kapat" Width="110" HorizontalAlignment="Right" Click="Close_Click"/>
+    </Grid>
+</Window>

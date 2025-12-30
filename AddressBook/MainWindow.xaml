@@ -1,0 +1,293 @@
+﻿<Window x:Class="AddressBook.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddressBook"
+        Height="650"
+        Width="1100"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Pastel tema -->
+        <SolidColorBrush x:Key="Bg" Color="#F3F8F6"/>
+        <SolidColorBrush x:Key="Surface" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Surface2" Color="#ECF6F0"/>
+        <SolidColorBrush x:Key="Border" Color="#CFE6DA"/>
+
+        <SolidColorBrush x:Key="Primary" Color="#7BC8A4"/>
+        <SolidColorBrush x:Key="PrimaryDark" Color="#3AAE8C"/>
+
+        <SolidColorBrush x:Key="Text" Color="#1F2937"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#6B7280"/>
+        <SolidColorBrush x:Key="Danger" Color="#E35D6A"/>
+
+        <!-- Genel buton stili -->
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Text}"/>
+            <Setter Property="Background" Value="{StaticResource Surface2}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#DFF2E8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#CFEBDC"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Primary (Yeşil) -->
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource Primary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Primary}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource PrimaryDark}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Icon buton -->
+        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="38"/>
+        </Style>
+
+        <!-- MutedButton (kalem için) -->
+        <Style x:Key="MutedButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+            <Setter Property="Background" Value="{StaticResource Surface2}"/>
+        </Style>
+
+        <!-- DangerButton -->
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+            <Setter Property="Background" Value="#FCE7EA"/>
+            <Setter Property="BorderBrush" Value="#F3B6BF"/>
+        </Style>
+
+        <!-- GroupBox -->
+        <Style TargetType="GroupBox">
+            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border CornerRadius="14"
+                                Background="{StaticResource Surface}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Margin="14">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{TemplateBinding Header}"
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMuted}"
+                                           Margin="0,0,0,12"/>
+                                <ContentPresenter Grid.Row="1"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="{StaticResource Text}"/>
+            <Setter Property="Background" Value="{StaticResource Surface2}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,0"/>
+        </Style>
+
+        <!-- ListBoxItem -->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" CornerRadius="10" Background="Transparent">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E8F5EE"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#F0FBF6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource Bg}" Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="14"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ÜST BAR -->
+        <Border Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Border}"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Adres / Telefon Rehberi"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource Text}"/>
+                    <TextBlock Text="Kişileri listeden seç • 👁 görüntüle • ✏ düzenle • 🗑 sil"
+                               Foreground="{StaticResource TextMuted}"/>
+                </StackPanel>
+
+                <!-- ✅ Daha geniş butonlar -->
+                <Button Grid.Column="2" Width="140" Height="40" Content="Yenile" Click="RefreshPersons_Click"/>
+                <Button Grid.Column="4" Width="180" Height="40" Content="+ Yeni Kişi" Style="{StaticResource PrimaryButton}" Click="NewPerson_Click"/>
+                <Button Grid.Column="6" Width="140" Height="40" Content="Kapat" Click="CloseApp_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- ANA LİSTE -->
+        <GroupBox Grid.Row="2" Header="Kişiler">
+            <DockPanel>
+
+                <!-- Search -->
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <TextBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged"/>
+                        <TextBlock Text="Ara (ad/soyad/tel)"
+                                   Margin="14,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextMuted}"
+                                   IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <!-- ✅ Daha geniş -->
+                    <Button Grid.Column="2" Width="140" Height="36" Content="Temizle" Click="ClearSearch_Click"/>
+                </Grid>
+
+                <ListBox x:Name="PersonsList">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- kişi -->
+                                <StackPanel>
+                                    <TextBlock Text="{Binding FullName}" FontWeight="SemiBold" Foreground="{StaticResource Text}"/>
+                                    <TextBlock Text="{Binding Phone}" Foreground="{StaticResource TextMuted}" FontSize="12"/>
+                                </StackPanel>
+
+                                <!-- adres sayısı -->
+                                <TextBlock Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource TextMuted}"
+                                           Text="{Binding AddressCount, StringFormat=Adres: {0}}"/>
+
+                                <!-- aksiyonlar -->
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button Style="{StaticResource IconButton}" Click="ViewPerson_Click" Tag="{Binding Person}">
+                                        <TextBlock Text="👁" FontSize="16"/>
+                                    </Button>
+
+                                    <Button Style="{StaticResource MutedButton}" Click="EditPerson_Click" Tag="{Binding Person}">
+                                        <TextBlock Text="✏" FontSize="16"/>
+                                    </Button>
+
+                                    <Button Style="{StaticResource DangerButton}" Click="DeletePersonRow_Click" Tag="{Binding Person}">
+                                        <TextBlock Text="🗑" FontSize="16"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>
